@@ -90,7 +90,7 @@ window.renderStatistics = function(ctx, players, times) {
   ctx.moveTo(CLOUD_X, CLOUD_Y);
   renderCloud('x', CLOUD_Y, CLOUD_X, CLOUD_WIDTH + CLOUD_X);
   renderCloud('y', CLOUD_WIDTH + CLOUD_X, CLOUD_Y, CLOUD_HEIGHT + CLOUD_Y);
-  renderCloud('x', CLOUD_HEIGHT + CLOUD_Y, CLOUD_WIDTH +  CLOUD_X, CLOUD_X,);
+  renderCloud('x', CLOUD_HEIGHT + CLOUD_Y, CLOUD_WIDTH +  CLOUD_X, CLOUD_X);
   renderCloud('y', CLOUD_X, CLOUD_HEIGHT + CLOUD_Y, CLOUD_Y);
   ctx.closePath();
   ctx.stroke();
