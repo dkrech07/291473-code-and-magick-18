@@ -20,7 +20,6 @@ var getMaxElement = function(arr) {
       maxElement = arr[i];
     }
   }
-
   return maxElement;
 };
 
@@ -36,7 +35,6 @@ window.renderStatistics = function(ctx, players, times) {
   };
 
     if (players.length == 0) {
-      console.log('Никто не играл');
       ctx.fillStyle = '#000';
       ctx.font = '16px PT Mono';
       ctx.textBaseline = 'hanging';
@@ -44,31 +42,31 @@ window.renderStatistics = function(ctx, players, times) {
     }
   };
 
-  var renderCloud = function(direction, fix_coord, start_coord, finish_coord) {
+  var renderCloud = function(direction, fixCoord, startCoord, finishCoord) {
     if (direction == 'x') {
-      if (start_coord <= finish_coord) {
-        for (var i = start_coord; i <= finish_coord; i += 5) {
-          var j = fix_coord;
+      if (startCoord <= finishCoord) {
+        for (var i = startCoord; i <= finishCoord; i += 5) {
+          var j = fixCoord;
           i % 2 == 0 ? j += 5 : j += 0;
             ctx.lineTo(i, j);
         }
       } else {
-        for (var i = start_coord; i >= finish_coord; i -= 5) {
-          var j = fix_coord;
+        for (var i = startCoord; i >= finishCoord; i -= 5) {
+          var j = fixCoord;
           i % 2 == 0 ? j += 5 : j += 0;
             ctx.lineTo(i, j);
         }
       }
     } else if (direction == 'y') {
-      if (start_coord <= finish_coord){
-        for(var j = start_coord; j <= finish_coord; j+=5){
-          var i = fix_coord;
+      if (startCoord <= finishCoord){
+        for(var j = startCoord; j <= finishCoord; j += 5){
+          var i = fixCoord;
           j % 2 == 0 ? i += 5 : i += 0;
             ctx.lineTo(i, j);
         }
       } else {
-        for(var j = start_coord; j >= finish_coord; j-=5){
-          var i = fix_coord;
+        for(var j = startCoord; j >= finishCoord; j -= 5){
+          var i = fixCoord;
           j % 2 == 0 ? i += 5 : i += 0;
             ctx.lineTo(i, j);
         }
@@ -118,5 +116,4 @@ window.renderStatistics = function(ctx, players, times) {
     players[i] === 'Вы' ? ctx.fillStyle = USER_COLOR : ctx.fillStyle = playersColor;
     ctx.fillRect(CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, BAR_HEIGHT + BAR_GAP * 2 - (BAR_HEIGHT * times[i] / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
   }
-
 };
