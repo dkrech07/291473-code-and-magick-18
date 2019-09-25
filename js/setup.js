@@ -4,6 +4,7 @@ var WIZARD_FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария
 var WIZARD_SECOND_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var WIZARDS_NUMBER = 4;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
@@ -17,7 +18,7 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 
 var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
 var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
-var fireballColor = document.querySelector('.setup-fireball-wrap .setup-fireball');
+var fireballColor = document.querySelector('.setup-fireball-wrap');
 
 var inputCoatColor = document.querySelector('input[name="coat-color"]');
 var inputEyesColor = document.querySelector('input[name="eyes-color"]');
@@ -71,47 +72,47 @@ setup.querySelector('.setup-similar').classList.remove('hidden');
 // у блока setup. Нажатие на элемент .setup-close, расположенный
 // внутри блока setup возвращает ему класс hidden.
 
-var onPopupEscPress = function(evt) {
+var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
 };
 
-var openPopup = function() {
+var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
 };
 
-var closePopup = function() {
+var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
-setupOpen.addEventListener('click', function() {
+setupOpen.addEventListener('click', function () {
   openPopup();
 });
 
-setupOpen.addEventListener('keydown', function(evt) {
+setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
 
-setupClose.addEventListener('click', function() {
+setupClose.addEventListener('click', function () {
   closePopup();
 });
 
-setupClose.addEventListener('keydown', function(evt) {
+setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
   }
 });
 
-userNameInput.addEventListener('keydown', function(evt){
+userNameInput.addEventListener('keydown', function (evt) {
   evt.stopPropagation();
 });
 
-userNameInput.addEventListener('invalid', function(evt) {
+userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validiti.tooShort) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (userNameInput.validiti.tooLong) {
@@ -121,13 +122,48 @@ userNameInput.addEventListener('invalid', function(evt) {
   }
 });
 
-var coatColorHandler = function() {
+var coatCount = 1;
+var eyesCount = 1;
+var fireballCount = 1;
+
+// Изменение цвета плаща
+var coatColorHandler = function () {
   wizardCoat.style.fill = COAT_COLORS[coatCount];
   inputCoatColor.value = COAT_COLORS[coatCount];
 
-  if (coatCount == EYES_COLORS.length - 1) {
+  if (coatCount === EYES_COLORS.length - 1) {
     coatCount = 0;
   } else {
     coatCount = coatCount + 1;
-  };
-}
+  }
+};
+
+// Изменение цвета глаз
+var eyesColorHandler = function () {
+  wizardEyes.style.fill = EYES_COLORS[eyesCount];
+  inputEyesColor.value = EYES_COLORS[eyesCount];
+
+  if (eyesCount === EYES_COLORS.length - 1) {
+    eyesCount = 0;
+  } else {
+    eyesCount = eyesCount + 1;
+  }
+};
+
+// Изменение цвета файербола
+var fireballColorHandler = function () {
+  fireballColor.style.backgroundColor = FIREBALL_COLORS[fireballCount];
+  inputFireballColor.value = FIREBALL_COLORS[fireballCount];
+
+  if (fireballCount === EYES_COLORS.length - 1) {
+    fireballCount = 0;
+  } else {
+    fireballCount = fireballCount + 1;
+  }
+};
+
+wizardCoat.addEventListener('click', coatColorHandler);
+
+wizardEyes.addEventListener('click', eyesColorHandler);
+
+fireballColor.addEventListener('click', fireballColorHandler);
