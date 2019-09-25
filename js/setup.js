@@ -5,12 +5,23 @@ var WIZARD_SECOND_NAMES = ['да Марья', 'Верон', 'Мирабелла'
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_NUMBER = 4;
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
-
-var similarListElement = userDialog.querySelector('.setup-similar-list');
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var userNameInput = setup.querySelector('.setup-user-name');
+var similarListElement = setup.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+
+var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var fireballColor = document.querySelector('.setup-fireball-wrap .setup-fireball');
+
+var inputCoatColor = document.querySelector('input[name="coat-color"]');
+var inputEyesColor = document.querySelector('input[name="eyes-color"]');
+var inputFireballColor = document.querySelector('input[name="fireball-color"]');
 
 var getRandom = function (number) {
 
@@ -52,4 +63,71 @@ var addWizard = function (wizards) {
 
 addWizard(getWizardsList());
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+setup.querySelector('.setup-similar').classList.remove('hidden');
+
+// Обработка событий
+
+// Нажатие на элемент .setup-open удаляет класс hidden
+// у блока setup. Нажатие на элемент .setup-close, расположенный
+// внутри блока setup возвращает ему класс hidden.
+
+var onPopupEscPress = function(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function() {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function() {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function() {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function() {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+userNameInput.addEventListener('keydown', function(evt){
+  evt.stopPropagation();
+});
+
+userNameInput.addEventListener('invalid', function(evt) {
+  if (userNameInput.validiti.tooShort) {
+    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userNameInput.validiti.tooLong) {
+    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (userNameInput.validiti.valueMissing) {
+    userNameInput.setCustomValidity('Обязательное поле');
+  }
+});
+
+var coatColorHandler = function() {
+  wizardCoat.style.fill = COAT_COLORS[coatCount];
+  inputCoatColor.value = COAT_COLORS[coatCount];
+
+  if (coatCount == EYES_COLORS.length - 1) {
+    coatCount = 0;
+  } else {
+    coatCount = coatCount + 1;
+  };
+}
