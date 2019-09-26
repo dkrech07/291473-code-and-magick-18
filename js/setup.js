@@ -66,13 +66,7 @@ addWizard(getWizardsList());
 
 setup.querySelector('.setup-similar').classList.remove('hidden');
 
-// Обработка событий
-
-// Нажатие на элемент .setup-open удаляет класс hidden
-// у блока setup. Нажатие на элемент .setup-close, расположенный
-// внутри блока setup возвращает ему класс hidden.
-
-var onPopupEscPress = function (evt) {
+var escPressHandler = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
@@ -80,12 +74,12 @@ var onPopupEscPress = function (evt) {
 
 var openPopup = function () {
   setup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
+  document.addEventListener('keydown', escPressHandler);
 };
 
 var closePopup = function () {
   setup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
+  document.removeEventListener('keydown', escPressHandler);
 };
 
 setupOpen.addEventListener('click', function () {
