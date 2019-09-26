@@ -9,6 +9,10 @@ var WIZARDS_NUMBER = 4;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
+var coatCount = 1;
+var eyesCount = 1;
+var fireballCount = 1;
+
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
@@ -116,11 +120,6 @@ userNameInput.addEventListener('invalid', function () {
   }
 });
 
-var coatCount = 1;
-var eyesCount = 1;
-var fireballCount = 1;
-
-// Изменение цвета плаща
 var coatColorHandler = function () {
   wizardCoat.style.fill = COAT_COLORS[coatCount];
   inputCoatColor.value = COAT_COLORS[coatCount];
@@ -132,7 +131,6 @@ var coatColorHandler = function () {
   }
 };
 
-// Изменение цвета глаз
 var eyesColorHandler = function () {
   wizardEyes.style.fill = EYES_COLORS[eyesCount];
   inputEyesColor.value = EYES_COLORS[eyesCount];
@@ -144,7 +142,6 @@ var eyesColorHandler = function () {
   }
 };
 
-// Изменение цвета файербола
 var fireballColorHandler = function () {
   fireballColor.style.backgroundColor = FIREBALL_COLORS[fireballCount];
   inputFireballColor.value = FIREBALL_COLORS[fireballCount];
