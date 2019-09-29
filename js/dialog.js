@@ -4,6 +4,7 @@
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = window.setup.popUp.querySelector('.setup-close');
   var userNameInput = window.setup.popUp.querySelector('.setup-user-name');
+  var dialogHandler = window.setup.popUp.querySelector('.upload');
 
   var discardCoords = function () {
     window.setup.popUp.style.top = '';
@@ -55,8 +56,6 @@
     }
   });
 
-  var dialogHandler = window.setup.popUp.querySelector('.upload');
-
   dialogHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -103,5 +102,4 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-
 })();
