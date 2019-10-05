@@ -13,9 +13,13 @@
   var similarListElement = window.setup.popUp.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-  var getRandom = function (number) {
-
-    return Math.floor(Math.random() * number);
+  var shuffleArray = function (array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
   };
 
   var renderWizard = function (wizard) {
@@ -29,6 +33,8 @@
   };
 
   var successLoadHandler = function (wizards) {
+    shuffleArray(wizards);
+
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < NUMBER_CHARACTERS; i++) {
@@ -52,17 +58,14 @@
     node.style.fontSize = '30px';
 
     node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+    document.querySelector('header').before(node);
   };
 
-  // Загрузка данных с сервера;
   window.backend.load(successLoadHandler, errorHandler);
 
-  // Отправка данных на сервер;
   var form = window.setup.popUp.querySelector('.setup-wizard-form');
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(form), successUploadHandler, errorHandler);
   });
-
 })();
