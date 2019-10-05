@@ -12,6 +12,7 @@
 
   var similarListElement = window.setup.popUp.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+  var form = window.setup.popUp.querySelector('.setup-wizard-form');
 
   var shuffleArray = function (array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -63,7 +64,6 @@
 
   window.backend.load(successLoadHandler, errorHandler);
 
-  var form = window.setup.popUp.querySelector('.setup-wizard-form');
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(form), successUploadHandler, errorHandler);
