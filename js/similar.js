@@ -8,21 +8,40 @@
   var wizards = [];
 
   var updateWizards = function () {
-    var sameCoatWizards = wizards.filter(function(it) {
-      return it.colorCoat === coatColor;
-    });
-    var sameEyesWizards = wizards.filter(function(it) {
-      return it.colorEyes === eyesColor;
-    });
+    var sameCoatAndEyesWizards = wizards.filter(function (it) {
+         return it.colorCoat === coatColor &&
+           it.colorEyes === eyesColor;
+       })
 
-    window.render(sameCoatWizards.concat(sameEyesWizards).concat(wizards));
+       var sameCoatWizards = wizards.filter(function (it) {
+         return it.colorCoat === coatColor;
+       });
 
-    var uniqueWizards =
-    filteredWizards.filter(function (it, i) {
-      return filteredWizards.indexOf(it) === i;
-    });
+       var sameEyesWizards = wizards.filter(function (it) {
+         return it.colorEyes === eyesColor;
+       });
 
-    window.render(uniqueWizards);
+       var filteredWizards = sameCoatAndEyesWizards;
+       filteredWizards = filteredWizards.concat(sameCoatWizards);
+       filteredWizards = filteredWizards.concat(sameEyesWizards);
+       filteredWizards = filteredWizards.concat(wizards);
+
+       var uniqueWizards =
+       filteredWizards.filter(function (it, i) {
+         return filteredWizards.indexOf(it) === i;
+       });
+
+       var oldElements = document.querySelector('.setup-similar-list');
+
+         var removeChild = function (element) {
+         while (element.firstChild) {
+           element.removeChild(element.firstChild);
+         }
+       }
+
+       removeChild(oldElements);
+
+       window.render(uniqueWizards);
 };
 
   var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
@@ -46,7 +65,13 @@
     } else {
       coatCount = coatCount + 1;
     }
-    coatColor = window.setup.COAT_COLORS[coatCount];
+     var newColor = window.setup.COAT_COLORS[coatCount];
+
+    coatColor = newColor;
+
+    updateWizards();
+
+    return coatColor;
   };
 
   var eyesColorHandler = function () {
@@ -58,7 +83,13 @@
     } else {
       eyesCount = eyesCount + 1;
     }
-    eyesColor = window.setup.EYES_COLORS[eyesCount];
+    var newColor = window.setup.EYES_COLORS[eyesCount];
+
+    eyesColor = newColor;
+
+    updateWizards();
+
+    return eyesColor;
   };
 
   var fireballColorsHandler = function () {
@@ -70,7 +101,13 @@
     } else {
       fireballCount = fireballCount + 1;
     }
-    fireballColor = window.setup.FIREBALL_COLORS[fireballCount];
+    var newColor = window.setup.FIREBALL_COLORS[fireballCount];
+
+    fireballColor = newColor;
+
+    updateWizards();
+
+    return fireballCount;
   };
 
   wizardCoat.addEventListener('click', coatColorHandler);
@@ -81,7 +118,8 @@
 
   var successLoadHandler = function (data) {
     wizards = data;
-    window.render(wizards);
+    updateWizards();
+    // window.render(wizards);
   };
 
   window.errorHandler = function (errorMessage) {

@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var NUMBER_CHARACTERS = 4;
   var similarListElement = window.setup.popUp.querySelector('.setup-similar-list');
@@ -24,14 +25,18 @@
     }
   };
 
-  window.render = function (wizards) {
-    shuffleArray(wizards);
+  window.render = function (data) {
+    shuffleArray(data);
 
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < NUMBER_CHARACTERS; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
+    var takeNumber = data.length > NUMBER_CHARACTERS ? NUMBER_CHARACTERS : data.length;
+
+    for (var i = 0; i < takeNumber; i++) {
+
+      fragment.appendChild(renderWizard(data[i]));
     }
+
     similarListElement.appendChild(fragment);
 
     window.setup.popUp.querySelector('.setup-similar').classList.remove('hidden');
