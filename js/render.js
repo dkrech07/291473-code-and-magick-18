@@ -2,6 +2,7 @@
 
 (function () {
   var NUMBER_CHARACTERS = 4;
+
   var similarListElement = window.popUp.querySelector('.setup-similar-list');
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
