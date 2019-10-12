@@ -4,7 +4,6 @@
 
   var coatColor;
   var eyesColor;
-  var fireballColor;
   var wizards = [];
 
   var getRank = function (wizard) {
@@ -32,14 +31,14 @@
 
   var updateWizards = function () {
 
-  var similarElements = document.querySelector('.setup-similar-list');
-  var removeChild = function (element) {
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-  };
+    var similarElements = document.querySelector('.setup-similar-list');
+    var removeChild = function (element) {
+      while (element.firstChild) {
+        element.removeChild(element.firstChild);
+      }
+    };
 
-removeChild(similarElements);
+    removeChild(similarElements);
 
     window.render(wizards.sort(function (left, right) {
       var rankDiff = getRank(right) - getRank(left);
@@ -53,13 +52,12 @@ removeChild(similarElements);
   window.wizard.onCoatChange = function (color) {
     coatColor = color;
     updateWizards();
-  }
-
+  };
 
   window.wizard.onEyesChange = function (color) {
     eyesColor = color;
     updateWizards();
-  }
+  };
 
   var successLoadHandler = function (data) {
     wizards = data;

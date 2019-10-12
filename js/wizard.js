@@ -2,18 +2,15 @@
 
 (function () {
   var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+
+  // var COAT_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
-
-    var coatColor;
-    var eyesColor;
-    var fireballColor;
-
   var wizard = {
-    onEyesChange: function (color) {},
-    onCoatChange: function (color) {}
-  }
+    onEyesChange: function () {},
+    onCoatChange: function () {}
+  };
 
   var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
   var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
@@ -31,60 +28,45 @@
     wizardCoat.style.fill = COAT_COLORS[coatCount];
     inputCoatColor.value = COAT_COLORS[coatCount];
 
+    var newColor = COAT_COLORS[coatCount];
+    wizard.onCoatChange(newColor);
+
     if (coatCount === EYES_COLORS.length - 1) {
       coatCount = 0;
     } else {
       coatCount = coatCount + 1;
     }
-     var newColor = COAT_COLORS[coatCount];
-
-    coatColor = newColor;
-
-    wizard.onCoatChange(newColor);
-
-    return coatColor;
   };
 
   var eyesColorHandler = function () {
     wizardEyes.style.fill = EYES_COLORS[eyesCount];
     inputEyesColor.value = EYES_COLORS[eyesCount];
 
+    var newColor = EYES_COLORS[eyesCount];
+    wizard.onEyesChange(newColor);
+
     if (eyesCount === EYES_COLORS.length - 1) {
       eyesCount = 0;
     } else {
       eyesCount = eyesCount + 1;
     }
-    var newColor = EYES_COLORS[eyesCount];
-
-    eyesColor = newColor;
-
-    wizard.onEyesChange(newColor);
-
-    return eyesColor;
   };
 
   var fireballColorsHandler = function () {
     fireballColors.style.backgroundColor = FIREBALL_COLORS[fireballCount];
     inputfireballColors.value = FIREBALL_COLORS[fireballCount];
 
-    if (fireballCount === EYES_COLORS.length - 1) {
+    if (fireballCount === FIREBALL_COLORS.length - 1) {
       fireballCount = 0;
     } else {
       fireballCount = fireballCount + 1;
     }
-    var newColor = EYES_COLORS[fireballCount];
-
-    fireballColor = newColor;
-
-    return fireballCount;
   };
 
   wizardCoat.addEventListener('click', coatColorHandler);
-
   wizardEyes.addEventListener('click', eyesColorHandler);
-
   fireballColors.addEventListener('click', fireballColorsHandler);
 
-
-  return window.wizard = wizard;
+  window.wizard = wizard;
+  return window.wizard;
 })();
