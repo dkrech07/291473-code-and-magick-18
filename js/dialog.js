@@ -53,6 +53,8 @@
       userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
     } else if (userNameInput.validiti.valueMissing) {
       userNameInput.setCustomValidity('Обязательное поле');
+    } else {
+      userNameInput.setCustomValidity('');
     }
   });
 

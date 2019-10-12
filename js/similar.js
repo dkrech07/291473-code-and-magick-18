@@ -49,15 +49,15 @@
     }));
   };
 
-  window.wizard.onCoatChange = function (color) {
+  window.wizard.onCoatChange = window.debounce(function (color) {
     coatColor = color;
     updateWizards();
-  };
+  });
 
-  window.wizard.onEyesChange = function (color) {
+  window.wizard.onEyesChange = window.debounce(function (color) {
     eyesColor = color;
     updateWizards();
-  };
+  });
 
   var successLoadHandler = function (data) {
     wizards = data;
