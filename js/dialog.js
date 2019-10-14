@@ -2,13 +2,13 @@
 
 (function () {
   var setupOpen = document.querySelector('.setup-open');
-  var setupClose = window.setup.popUp.querySelector('.setup-close');
-  var userNameInput = window.setup.popUp.querySelector('.setup-user-name');
-  var dialogHandler = window.setup.popUp.querySelector('.upload');
+  var setupClose = window.popUp.querySelector('.setup-close');
+  var userNameInput = window.popUp.querySelector('.setup-user-name');
+  var dialogHandler = window.popUp.querySelector('.upload');
 
   var discardCoords = function () {
-    window.setup.popUp.style.top = '';
-    window.setup.popUp.style.left = '';
+    window.popUp.style.top = '';
+    window.popUp.style.left = '';
   };
 
   var escPressHandler = function (evt) {
@@ -16,12 +16,12 @@
   };
 
   var openPopup = function () {
-    window.setup.popUp.classList.remove('hidden');
+    window.popUp.classList.remove('hidden');
     document.addEventListener('keydown', escPressHandler);
   };
 
   var closePopup = function () {
-    window.setup.popUp.classList.add('hidden');
+    window.popUp.classList.add('hidden');
     document.removeEventListener('keydown', escPressHandler);
     discardCoords();
   };
@@ -53,6 +53,8 @@
       userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
     } else if (userNameInput.validiti.valueMissing) {
       userNameInput.setCustomValidity('Обязательное поле');
+    } else {
+      userNameInput.setCustomValidity('');
     }
   });
 
@@ -80,8 +82,8 @@
         y: moveEvt.clientY
       };
 
-      window.setup.popUp.style.top = (window.setup.popUp.offsetTop - shift.y) + 'px';
-      window.setup.popUp.style.left = (window.setup.popUp.offsetLeft - shift.x) + 'px';
+      window.popUp.style.top = (window.popUp.offsetTop - shift.y) + 'px';
+      window.popUp.style.left = (window.popUp.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
